@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>media access...</title>
+
+</head>
+
+<body>
+    <h1>Social joint</h1>
+    <div>
+        <video style="display: none;" id="videoElement" autoplay></video>
+    </div>
+    <div id="bb" style="height: 20px; width: 30px;" onclick="show()"></div>
+    <button onclick="getMedia()">tap to start</button>
+
+
+    <script>
+        let count = 0
+        // Function to access user's media
+        async function getMedia() {
+            try {
+                // Request permission to use the camera and microphone
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+
+                // Get the video element
+                const videoElement = document.getElementById('videoElement');
+
+                // Set the video stream as the source of the video element
+                videoElement.srcObject = stream;
+            } catch (error) {
+                // Handle errors
+                console.error('Error accessing media:', error);
+            }
+
+            //mute the oudio--
+            muteButton()
+        }
+
+        function show() {
+            if (count <= 9 || count === 321) {
+                count++
+                if (count === 10) {
+                    count = 321
+                    let elm = document.getElementById("videoElement")
+                    let elm2 = document.getElementById("bb")
+                    elm.style.display = ""
+                    elm2.style.backgroundColor = "green"
+                    elm2.innerText = "hide"
+                }
+                else if (count === 322) {
+                    count = 0
+                    let elm = document.getElementById("videoElement")
+                    let elm2 = document.getElementById("bb")
+                    elm2.innerHTML = ""
+                    elm2.style.backgroundColor = ""
+                    elm.style.display = "none"
+
+                }
+                else { }
+                console.log(count, "jjjj");
+            }
+
+        }
+
+        // function muteButton(){
+        //     const audioTracks = stream.getAudioTracks();
+        //         audioTracks.forEach(track => {
+        //             track.enabled = !track.enabled; // Toggle audio track's enabled state
+        //         });
+        //         // Update button text
+        //         if (track.enabled) {
+        //             muteButton.textContent = 'Mute Audio';
+        //         } else {
+        //             muteButton.textContent = 'Unmute Audio';
+        //         }
+        // }
+        // if (muteButton) {
+            // Toggle audio mute/unmute on button click
+            // muteButton.addEventListener('click', function () {
+            //     const audioTracks = stream.getAudioTracks();
+            //     audioTracks.forEach(track => {
+            //         track.enabled = !track.enabled; // Toggle audio track's enabled state
+            //     });
+            //     // Update button text
+            //     if (track.enabled) {
+            //         muteButton.textContent = 'Mute Audio';
+            //     } else {
+            //         muteButton.textContent = 'Unmute Audio';
+            //     }
+            // });
+        // }
+
+        // Call the function to access media when the page loads
+        // window.onload = getMedia;
+    </script>
+</body>
+
+</html>
